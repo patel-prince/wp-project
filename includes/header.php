@@ -1,3 +1,15 @@
+<?php 
+    session_start(); 
+    if(isset($_SESSION['user']) && !empty($_SESSION['user'])) { 
+        if (in_array($active_page, ["login", "register"])) {
+            header("location: resume.php");
+        }
+    }else{
+        if (!in_array($active_page, ["login", "register"])) {
+            header("location: login.php");
+        }
+    }
+?>
 <?php include_once './includes/db.php' ?>
 
 <!DOCTYPE html>
@@ -15,4 +27,4 @@
 
 <body>
     <div class="page-wrapper">
-        <?php // include_once './includes/nav.php' ?>
+        <?php include_once './includes/nav.php' ?>

@@ -33,7 +33,7 @@
     }
 ?>
 
-<div class="max-w-600 m-auto p-5">
+<div class="max-w-600 m-auto">
     <h1 class="section-title mb-5" style="text-align: center">User Registration</h1>
     <div class="card">
         <form class="card-body user-registration" method="post">
@@ -68,7 +68,7 @@
                     <input class="form-control" type="password" name="password" placeholder="Enter Password" />
                 </div>
             </div>
-            <button class="btn btn-primary p-5 pb-2 pt-2" type="submit">Submit form</button>
+            <button class="btn btn-primary p-5 pb-2 pt-2" type="submit">Register</button>
         </form>
     </div>
 </div>
