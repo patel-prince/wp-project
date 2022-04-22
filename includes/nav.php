@@ -14,6 +14,10 @@
                 <a class="nav-link <?= ($active_page == 'calculator') ? 'active' : '' ?>" aria-current="page"
                     href="calculator.php">Calculator</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link <?= ($active_page == 'profile') ? 'active' : '' ?>" aria-current="page"
+                    href="profile.php">My Profile</a>
+            </li>
         </ul>
         <?php } ?>
         <ul class="navbar-nav ms-auto">

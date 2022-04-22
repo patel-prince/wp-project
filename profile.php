@@ -1,10 +1,10 @@
-<?php $active_page = 'resume' ?>
+<?php $active_page = 'profile' ?>
 
 <?php include_once './includes/header.php' ?>
 
 <?php 
-    if($_GET && $_GET['id']) {
-        $query = "SELECT * FROM users WHERE id = " . $_GET['id'];
+    if(isset($_SESSION) && isset($_SESSION['user'])) {
+        $query = "SELECT * FROM users WHERE id = " . $_SESSION['user']['id'];
         $result = mysqli_query($conn, $query);
         $user = null;
         while( $row = mysqli_fetch_assoc($result) ) {
@@ -21,19 +21,19 @@
                 <table class="table table-bordered">
                     <tr>
                         <th>Firstname</th>
-                        <td>Firstname</td>
+                        <td><?= $user['firstname'] ?></td>
                     </tr>
                     <tr>
                         <th>Lastname</th>
-                        <td>Lastname</td>
+                        <td><?= $user['lastname'] ?></td>
                     </tr>
                     <tr>
                         <th>Email ID</th>
-                        <td>Email ID</td>
+                        <td><?= $user['email'] ?></td>
                     </tr>
                     <tr>
                         <th>Phone</th>
-                        <td>Phone</td>
+                        <td><?= $user['phone'] ?></td>
                     </tr>
                 </table>
             </div>
