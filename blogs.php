@@ -32,11 +32,6 @@
             }
         }
     }
-
-    // echo "<pre>";
-    // print_r($blogs);
-    // echo "</pre>";
-    // exit();
 ?>
 
 <div class="container">
