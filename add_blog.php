@@ -3,9 +3,7 @@
 <?php include_once './includes/header.php' ?>
 <?php 
      if(isset($_SESSION['user']) && !empty($_SESSION['user']) && $_SESSION['user']['user_type'] == 'user') { 
-      
             header("location: blogs.php");
-
     }
     if($_POST) {
         $title = $_POST['title'];

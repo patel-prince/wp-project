@@ -3,14 +3,28 @@
 <?php include_once './includes/header.php' ?>
 <?php 
     if($_POST){
-        $blog_id = $_POST['blog_id'];
-        $comment = $_POST['comment'];
-        
-        $query = "INSERT INTO comments (blog_id, comment, user_id) VALUES ('".$blog_id."', '".$comment."', '".$_SESSION['user']['id']."')";
-        $result = mysqli_query($conn, $query);
-        header("location: blogs.php");
+        if($_POST['blog_id']) {
+            $blog_id = $_POST['blog_id'];
+            $comment = $_POST['comment'];
+            
+            $query = "INSERT INTO comments (blog_id, comment, user_id) VALUES ('".$blog_id."', '".$comment."', '".$_SESSION['user']['id']."')";
+            $result = mysqli_query($conn, $query);
+            header("location: blogs.php");
+        }
+        if($_POST['delete_id']) { 
+            $blog_id = $_POST['delete_id'];
+            $query = "delete from blogs where id = " . $blog_id;
+            $result = mysqli_query($conn, $query);
+            header("location: blogs.php");
+        }
+        if($_POST['delete_comment_id']) { 
+            $comment_id = $_POST['delete_comment_id'];
+            $query = "delete from comments where id = " . $comment_id;
+            $result = mysqli_query($conn, $query);
+            header("location: blogs.php");
+        }
     }
-    $query = "SELECT b.id, b.title, b.description, c.comment FROM blogs as b left join comments as c on b.id = c.blog_id order by id desc";
+    $query = "SELECT b.id, b.title, b.description, c.comment, c.id as comment_id FROM blogs as b left join comments as c on b.id = c.blog_id order by id desc";
     $result = mysqli_query($conn, $query);
     $blogs = [];
 
@@ -23,12 +37,20 @@
                 "comments" => []
             ];
             if(!empty($row['comment'])) {
-                $data["comments"] = [$row['comment']];
+                $data["comments"] = [
+                    [
+                        "text" => $row['comment'],
+                        "id" => $row['comment_id'],
+                    ]
+                ];
             }
             if(!isset($blogs[$row['id']])) {
                 $blogs[$row['id']] = $data;
             }else{
-                $blogs[$row['id']]['comments'][] = $row['comment'];
+                $blogs[$row['id']]['comments'][] = [
+                    "text" => $row['comment'],
+                    "id" => $row['comment_id'],
+                ];
             }
         }
     }
@@ -38,15 +60,34 @@
     <h1 class="section-title mt-5" style="text-align: center">Blogs</h1>
     <?php if(count($blogs) > 0) { ?>
     <?php foreach($blogs as $blog) { ?>
-    <div class="card mt-5">
+    <div class="card mb-5 mt-5">
         <div class="card-body p-5">
-            <h1><?= $blog['title'] ?></h1>
+            <div class="row">
+                <div class="col-11">
+                    <h1><?= $blog['title'] ?></h1>
+                </div>
+                <div class="col-1 text-right">
+                    <?php if(isset($_SESSION['user']) && $_SESSION['user']['user_type'] == 'admin') { ?>
+                    <form method="post">
+                        <button class="btn btn-danger" name="delete_id" value="<?= $blog['id'] ?>">Delete</button>
+                    </form>
+                    <?php } ?>
+                </div>
+            </div>
             <p><?= $blog['description'] ?></p>
             <hr>
             <?php if(count($blog['comments']) > 0) { ?>
             <h6>Comments:</h6>
             <?php foreach($blog['comments'] as $comment) { ?>
-            <p><?= $comment ?></p>
+            <div class="d-flex">
+                <p><?= $comment['text'] ?></p>
+                <?php if(isset($_SESSION['user']) && $_SESSION['user']['user_type'] == 'admin') { ?>
+                <form method="post" class="ps-4">
+                    <button class="btn btn-link btn-sm" name="delete_comment_id"
+                        value="<?= $comment['id'] ?>">Delete</button>
+                </form>
+                <?php } ?>
+            </div>
             <?php } ?>
             <?php } ?>
             <form method="post">
