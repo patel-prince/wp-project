@@ -16,6 +16,30 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`wp_project` /*!40100 DEFAULT CHARACTER 
 
 USE `wp_project`;
 
+/*Table structure for table `blogs` */
+
+DROP TABLE IF EXISTS `blogs`;
+
+CREATE TABLE `blogs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+
+/*Table structure for table `comments` */
+
+DROP TABLE IF EXISTS `comments`;
+
+CREATE TABLE `comments` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `blog_id` int(10) unsigned NOT NULL,
+  `comment` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+
 /*Table structure for table `users` */
 
 DROP TABLE IF EXISTS `users`;
@@ -27,8 +51,9 @@ CREATE TABLE `users` (
   `email` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
+  `user_type` enum('user','writer') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
