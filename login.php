@@ -9,15 +9,14 @@
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $query = "SELECT id, firstname, lastname, email, phone FROM users WHERE email = '" . $email . "' AND password = '". md5($password) ."'";
+        $query = "SELECT id, firstname, lastname, email, phone, user_type FROM users WHERE email = '" . $email . "' AND password = '". md5($password) ."'";
         $result = mysqli_query($conn, $query);
 
         if($result->num_rows != 0) {
-            echo $result->num_rows;
             while( $row = mysqli_fetch_assoc($result) ) {
                 $_SESSION['user'] = $row;
             }
-            header("location: resume.php");
+            header("location: blogs.php");
         } else {
             $error = "Email ID or Password in invalid.";
         }

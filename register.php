@@ -22,7 +22,7 @@
             $count = $row['count'];
         }
         if( $count == 0 ) {
-            $query = "INSERT INTO users (firstname, lastname, email, phone, password) VALUES ('".$firstname."', '".$lastname."', '".$email."', '".$phone."', '".md5($password)."')";
+            $query = "INSERT INTO users (firstname, lastname, email, phone, password, user_type) VALUES ('".$firstname."', '".$lastname."', '".$email."', '".$phone."', '".md5($password)."', 'user')";
             $result = mysqli_query($conn, $query);
             $last_id = mysqli_insert_id($conn);
             header("location: profile.php?id=" . $last_id);

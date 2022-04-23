@@ -1,23 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
     <div class="container">
-        <?php if(isset($_SESSION['user']) && !empty($_SESSION['user'])) { ?>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link <?= ($active_page == 'resume') ? 'active' : '' ?>" aria-current="page"
-                    href="resume.php">Resume</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link <?= ($active_page == 'time-table') ? 'active' : '' ?>" aria-current="page"
-                    href="time-table.php">Time Table</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link <?= ($active_page == 'calculator') ? 'active' : '' ?>" aria-current="page"
-                    href="calculator.php">Calculator</a>
-            </li>
-        </ul>
-        <?php } ?>
         <ul class="navbar-nav ms-auto">
+
             <?php if(isset($_SESSION['user']) && !empty($_SESSION['user'])) { ?>
+            <?php if($_SESSION['user']['user_type'] == 'writer') { ?>
+            <li class="nav-item">
+                <a class="nav-link <?= ($active_page == 'add_blog') ? 'active' : '' ?>" aria-current="page"
+                    href="add_blog.php">Create Blog</a>
+            </li>
+            <?php } ?>
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="logout.php">Logout</a>
             </li>
